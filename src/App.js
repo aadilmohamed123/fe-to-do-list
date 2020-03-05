@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { Component } from "react";
+import CalendarDropdown from "./components/CalendarDropdown";
+import List from "./components/List";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    goals: [
+      { goal: "take one more sustainable action", month: "Mar" },
+      { goal: "meditate for 10 minutes a day", month: "Apr" }
+    ],
+    displayedMonth: "Jan"
+  };
+  render() {
+    console.log(this.state.displayedMonth);
+
+    return (
+      <main className="listContainer">
+        <h1>Monthly Goals</h1>
+        <CalendarDropdown handleDropdown={this.handleDropdown} />
+        <List
+          displayedMonth={this.state.displayedMonth}
+          goals={this.state.goals}
+        />
+      </main>
+    );
+  }
+
+  handleDropdown = month => {
+    this.setState({ displayedMonth: month });
+  };
 }
 
 export default App;
