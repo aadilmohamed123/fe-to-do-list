@@ -4,3 +4,11 @@
   border-radius: 50%;
   padding: 3px;
 }
+
+.daysLeftRed {
+  color: red;
+}
+
+.daysLeftGreen {
+  color: green;
+}

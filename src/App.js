@@ -17,7 +17,10 @@ class App extends Component {
     return (
       <main className="listContainer">
         <h1>Monthly Goals</h1>
-        <CalendarDropdown handleDropdown={this.handleDropdown} />
+        <CalendarDropdown
+          handleDropdown={this.handleDropdown}
+          displayedMonth={this.state.displayedMonth}
+        />
         <List
           displayedMonth={this.state.displayedMonth}
           goals={this.state.goals}
@@ -49,7 +52,6 @@ class App extends Component {
   };
 
   deleteGoal = goal => {
-    
     this.setState(currentState => {
       const filteredState = currentState.goals.filter(
         filteredGoal => filteredGoal.goal !== goal
