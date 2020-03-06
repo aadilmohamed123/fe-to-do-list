@@ -6,7 +6,19 @@ const List = props => {
       {props.goals
         .filter(goal => props.displayedMonth === goal.month)
         .map(filteredGoal => {
-          return <li key={filteredGoal.goal}>{filteredGoal.goal}</li>;
+          return (
+            <li key={filteredGoal.goal}>
+              {filteredGoal.goal}{" "}
+              <span
+                className="deleteButton"
+                onClick={() => {
+                  props.deleteGoal(filteredGoal.goal);
+                }}
+              >
+                X
+              </span>{" "}
+            </li>
+          );
         })}
     </ul>
   );

@@ -7,11 +7,12 @@ import GoalInput from "./components/GoalInput";
 class App extends Component {
   state = {
     goals: [
-      { goal: "take a sustainable action", month: "Mar" },
+      { goal: "take a sustainable action", month: "Jan" },
       { goal: "meditate for 10 minutes a day", month: "Apr" }
     ],
     displayedMonth: "Jan"
   };
+
   render() {
     return (
       <main className="listContainer">
@@ -20,6 +21,7 @@ class App extends Component {
         <List
           displayedMonth={this.state.displayedMonth}
           goals={this.state.goals}
+          deleteGoal={this.deleteGoal}
         />
         <GoalInput
           displayedMonth={this.state.displayedMonth}
@@ -34,11 +36,35 @@ class App extends Component {
   };
 
   addGoal = input => {
+    this.setState(
+      currentState => {
+        return {
+          goals: [...currentState.goals, input]
+        };
+      },
+      () => {
+        localStorage.setItem("state", JSON.stringify(this.state.goals));
+      }
+    );
+  };
+
+  deleteGoal = goal => {
+    
     this.setState(currentState => {
-      return {
-        goals: [...currentState.goals, input]
-      };
+      const filteredState = currentState.goals.filter(
+        filteredGoal => filteredGoal.goal !== goal
+      );
+      console.log(filteredState);
+
+      return { goals: filteredState };
     });
+  };
+
+  componentDidMount = () => {
+    const oldState = localStorage.state;
+    if (oldState !== undefined) {
+      this.setState({ goals: JSON.parse(oldState) });
+    }
   };
 }
 
